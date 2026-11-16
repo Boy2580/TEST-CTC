@@ -1,0 +1,7 @@
+<svg preserveAspectRatio="none" overflow="visible" style="display: block;" width="52.9989" height="54" viewBox="0 0 52.9989 54" fill="none" xmlns="http://www.w3.org/2000/svg">
+<g id="Btn">
+<rect id="Outer" x="1.5" y="1.5" width="49.9989" height="51" rx="8.5" fill="#6C6C6C" stroke-width="3" stroke="#252525"/>
+<rect id="Inner" x="4.5" y="4.5" width="44" height="41.0284" rx="5.5" fill="#878787" stroke-width="3" stroke="#CCCCCC"/>
+<path id="Vector" d="M26.5 23.925V29.675M26.5 19.3365L26.5115 19.3239M26.5 36C32.8515 36 38 30.8515 38 24.5C38 18.1486 32.8515 13 26.5 13C20.1486 13 15 18.1486 15 24.5C15 30.8515 20.1486 36 26.5 36Z" stroke-width="3" stroke-linecap="round" stroke-linejoin="round" stroke="black" stroke-opacity="0.5"/>
+</g>
+</svg>
