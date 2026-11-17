@@ -173,6 +173,7 @@ export default function App() {
               username={username}
               onExplore={() => navigateWithTransition("map")}
               onLogout={() => navigateWithTransition("main")}
+              onUpdateUsername={setUsername}
             />
           )}
 

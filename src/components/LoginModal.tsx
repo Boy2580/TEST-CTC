@@ -6,8 +6,8 @@ import {
   verifyOtpApi,
   resendOtpApi,
   loginApi,
-} from "../api/service/authApi.ts";
-import { setNameApi } from "../api/service/userControl.ts";
+} from "../api/services/authApi.ts";
+import { setNameApi } from "../api/services/userControl.ts";
 import { unlockAchievement } from "../utils/achievementHelper.ts";
 
 interface LoginModalProps {

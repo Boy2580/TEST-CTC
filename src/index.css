@@ -207,6 +207,38 @@
   animation: medalShine 3.5s cubic-bezier(0.4, 0, 0.2, 1) infinite;
 }
 
+@keyframes sparkleTwinkle {
+  0%, 100% {
+    transform: scale(0.3) rotate(0deg);
+    opacity: 0.2;
+  }
+  50% {
+    transform: scale(1.15) rotate(45deg);
+    opacity: 1;
+    filter: drop-shadow(0 0 6px #fff9a6);
+  }
+}
+
+.animate-sparkle {
+  animation: sparkleTwinkle 2s ease-in-out infinite;
+}
+
+@keyframes starFloat {
+  0%, 100% {
+    transform: translateY(0px) scale(0.9);
+    opacity: 0.85;
+  }
+  50% {
+    transform: translateY(-4px) scale(1.1);
+    opacity: 1;
+    filter: drop-shadow(0 0 5px #fffbb0);
+  }
+}
+
+.animate-star-float {
+  animation: starFloat 2.4s ease-in-out infinite;
+}
+
 /* Hide scrollbars while keeping scroll functionality */
 .no-scrollbar::-webkit-scrollbar {
   display: none;

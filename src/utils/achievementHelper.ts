@@ -1,4 +1,4 @@
-import { unlockAchievementApi } from "../api/service/achievementApi";
+import { unlockAchievementApi } from "../api/services/achievement";
 
 /**
  * ฟังก์ชันสำหรับสั่งปลดล็อก Achievement ตามหมายเลข ID

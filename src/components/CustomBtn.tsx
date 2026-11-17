@@ -11,7 +11,7 @@ export interface CustomBtnProps extends React.ButtonHTMLAttributes<HTMLButtonEle
   textClassName?: string;
   strokeWidth?: number | string;
   strokeColor?: string;
-  variant?: "yellow" | "red" | "gray";
+  variant?: "yellow" | "red" | "gray" | "blue" | "green";
   compactShadow?: boolean;
   className?: string;
 }
@@ -40,6 +40,8 @@ export const CustomBtn: React.FC<CustomBtnProps> = ({
 }) => {
   const isRed = variant === "red";
   const isGray = variant === "gray";
+  const isBlue = variant === "blue";
+  const isGreen = variant === "green";
   const hasWidth = className.includes("size-") || className.includes("w-");
   const hasHeight = className.includes("size-") || className.includes("h-");
   const sizeDefaults = [!hasWidth && "w-[232px]", !hasHeight && "h-[48px]"]
@@ -82,6 +84,14 @@ export const CustomBtn: React.FC<CustomBtnProps> = ({
             ? compactShadow
               ? "bg-[#4a4a4a] border-[2px] border-[#222222]"
               : "bg-[#4a4a4a] border-[3px] border-[#222222]"
+            : isBlue
+            ? compactShadow
+              ? "bg-[#315882] border-[2.5px] border-[#0c1f38]"
+              : "bg-[#315882] border-[3.5px] border-[#0c1f38]"
+            : isGreen
+            ? compactShadow
+              ? "bg-[#205c2e] border-[2.5px] border-[#103318]"
+              : "bg-[#205c2e] border-[3.5px] border-[#2e1406]"
             : compactShadow
             ? "bg-[#cd5541] border-[2.5px] border-[#2e1406]"
             : "bg-[#cd5541] border-[3.5px] border-[#2e1406]"
@@ -101,6 +111,14 @@ export const CustomBtn: React.FC<CustomBtnProps> = ({
             ? compactShadow
               ? "bg-[#808080] group-hover:bg-[#8e8e8e] border-[2px] border-[#c0c0c0]"
               : "bg-[#808080] group-hover:bg-[#8e8e8e] border-[3px] border-[#c0c0c0]"
+            : isBlue
+            ? compactShadow
+              ? "bg-[#5da3d5] group-hover:bg-[#6cb0e2] border-[2.5px] border-[#b2ddfc]"
+              : "bg-[#5da3d5] group-hover:bg-[#6cb0e2] border-[4px] border-[#b2ddfc]"
+            : isGreen
+            ? compactShadow
+              ? "bg-[#42b75a] group-hover:bg-[#4ecd67] border-[2.5px] border-[#a6ebb8]"
+              : "bg-[#42b75a] group-hover:bg-[#4ecd67] border-[4px] border-[#a6ebb8]"
             : compactShadow
             ? "bg-[#fec559] group-hover:bg-[#ffd074] border-[2.5px] border-[#f7daa4]"
             : "bg-[#fec559] group-hover:bg-[#ffd074] border-[4px] border-[#f7daa4]"

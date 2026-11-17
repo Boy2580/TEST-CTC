@@ -1,6 +1,5 @@
 import axios from "axios";
-
-const API_BASE_URL = import.meta.env.VITE_API_BASE_URL || "http://localhost:5000/api";
+import { API_BASE_URL } from "./authApi";
 
 // 1. ต้องมี s ต่อท้ายเป็น /achievements ให้ตรงกับหลังบ้าน
 export async function getAchievementsApi() {

@@ -2,6 +2,8 @@ import { useEffect, useRef, useState } from "react";
 import CustomBtn from "../components/CustomBtn";
 import { MissionLevelBox } from "../components/MissionLevelBox";
 import { MISSIONS_DATA, type MissionLevelData } from "../data/missionsData";
+import { getAllProgressApi } from "../api/services/progressApi";
+import { completeMission } from "../utils/missionHelper"; // นำเข้าฟังก์ชันกลางที่เราเพิ่งทำ
 
 export interface MissionMapScreenProps {
   onBack?: () => void;
@@ -14,11 +16,37 @@ export const MissionMapScreen = ({
 }: MissionMapScreenProps) => {
   const scrollContainerRef = useRef<HTMLDivElement | null>(null);
   const [isDragging, setIsDragging] = useState(false);
+  const [completedMissionIds, setCompletedMissionIds] = useState<
+    Record<number, boolean>
+  >({});
+
   const dragStateRef = useRef({
     isDown: false,
     startY: 0,
     scrollTop: 0,
   });
+
+  // โหลดข้อมูลความก้าวหน้าทั้งหมดจาก Backend ทันทีที่เปิดหน้าจอ
+  useEffect(() => {
+    const loadProgress = async () => {
+      try {
+        const res = await getAllProgressApi();
+        if (res.success && Array.isArray(res.progress)) {
+          const completedMap: Record<number, boolean> = {};
+          res.progress.forEach((item: any) => {
+            if (item.isUnlocked) {
+              completedMap[item.level_id] = true;
+            }
+          });
+          setCompletedMissionIds(completedMap);
+        }
+      } catch (error) {
+        console.error("Failed to load progress:", error);
+      }
+    };
+
+    loadProgress();
+  }, []);
 
   // Start scrolled at the top
   useEffect(() => {
@@ -56,6 +84,22 @@ export const MissionMapScreen = ({
     }
   };
 
+  // ตัวอย่างการใช้งาน: เมื่อกดปุ่ม "?" จำลองว่าเล่นเกมจบแล้ว เรียกใช้ completeMission
+  const handleInfoClick = async (lv: MissionLevelData) => {
+    if (isDragging) return;
+
+    // เรียกใช้งานฟังก์ชันกลางจาก utils เมื่อเคลียร์เกมจบ
+    await completeMission(lv.id, () => {
+      // Callback เมื่อสำเร็จให้อัปเดต State บนหน้า UI ให้ขึ้นเครื่องหมายถูกทันที
+      setCompletedMissionIds((prev) => ({
+        ...prev,
+        [lv.id]: true,
+      }));
+    });
+
+    onSelectMission?.(lv);
+  };
+
   return (
     <div className="relative w-full h-full overflow-hidden bg-[#1a0909] select-none">
       {/* Scrollable Map */}
@@ -74,7 +118,7 @@ export const MissionMapScreen = ({
         }}
       >
         {/* Map Canvas */}
-        <div className="relative w-full h-[2385px]">
+        <div className="relative w-full h-[2750px]">
           {/* Map Background */}
           <div className="absolute inset-0 pointer-events-none overflow-hidden">
             <img
@@ -88,32 +132,34 @@ export const MissionMapScreen = ({
           </div>
 
           {/* Centered Column */}
-          <div className="relative mx-auto w-[402px] max-w-full h-full">
+          <div className="relative mx-auto w-[454px] max-w-full h-full">
             {/* Timeline Line */}
-            <div className="absolute left-[14.5px] top-[56px] w-[31px] h-[2310px] pointer-events-none flex items-center justify-center">
+            <div className="absolute left-[6px] top-[56px] w-[31px] h-[2665px] pointer-events-none flex items-center justify-center">
               <img
                 src="/images/Timeline_Line.svg"
                 alt=""
                 draggable={false}
-                className="w-[31px] h-[2310px] object-fill pointer-events-none"
+                className="w-[31px] h-[2665px] object-fill pointer-events-none"
               />
             </div>
 
             {/* Level Cards */}
-            <div className="absolute left-[17px] top-0 w-[355px] h-full">
+            <div className="absolute left-[6px] top-0 w-[420px] h-full">
               {MISSIONS_DATA.map((level, index) => {
-                const topPx = 127 + index * 370;
+                const topPx = 135 + index * 436;
+                const isCompleted = Boolean(completedMissionIds[level.id]);
                 return (
                   <MissionLevelBox
                     key={level.id}
                     level={level}
                     topPx={topPx}
+                    isCompleted={isCompleted}
                     onStartMission={(lv) => {
-                      if (!isDragging) onSelectMission?.(lv);
+                      if (!isDragging) {
+                        onSelectMission?.(lv);
+                      }
                     }}
-                    onInfoClick={(lv) => {
-                      if (!isDragging) onSelectMission?.(lv);
-                    }}
+                    onInfoClick={handleInfoClick}
                   />
                 );
               })}
@@ -128,7 +174,7 @@ export const MissionMapScreen = ({
           {/* Title & Subtitle */}
           <div className="flex flex-col gap-[2px] max-w-[270px]">
             <h1
-              className="font-['Mitr'] font-medium text-[24px] text-white leading-tight"
+              className="font-['Mitr'] font-medium text-[26px] text-white leading-tight"
               style={{
                 WebkitTextStroke: "7px #2e1406",
                 paintOrder: "stroke fill",
@@ -137,13 +183,13 @@ export const MissionMapScreen = ({
               แผนที่สำรวจ
             </h1>
             <p
-              className="font-['Mitr'] font-normal text-[15px] text-white leading-snug"
+              className="font-['Mitr'] font-normal text-[17px] text-white leading-snug"
               style={{
                 WebkitTextStroke: "5px #2e1406",
                 paintOrder: "stroke fill",
               }}
             >
-              แตะที่ปุ่ม ? เพื่อดูรายละเอียดภารกิจ
+              แตะที่ปุ่ม ? เพื่อจำลองเคลียร์ภารกิจ
             </p>
           </div>
 

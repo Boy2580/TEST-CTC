@@ -1,0 +1,14 @@
+<svg width="48" height="48" viewBox="0 0 48 48" fill="none" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink">
+<rect x="3" y="3" width="42" height="42" rx="21" fill="#6FAE64"/>
+<rect x="4.5" y="4.5" width="39" height="39" rx="19.5" stroke-width="3" stroke="white" stroke-opacity="0.65"/>
+<rect x="1.5" y="1.5" width="44.999" height="45" rx="22.4995" stroke-width="3" stroke="#2E1406"/>
+<use xlink:href="#stroke0_298_71" fill="#F8E6C4"/>
+<mask id="stroke1_298_71" maskUnits="userSpaceOnUse" x="12" y="14" width="25" height="20" fill="black">
+<rect fill="white" x="12" y="14" width="25" height="20"/>
+<use xlink:href="#stroke0_298_71"/>
+</mask>
+<path d="M34 20.0865L23.3887 30.3607C22.5083 31.2131 21.0813 31.2131 20.2009 30.3607L15 25.3251L18.1878 22.2386L21.7948 25.7309L30.8122 17L34 20.0865Z" stroke-width="6" stroke-linecap="square" stroke-linejoin="round" stroke="#2E1406" mask="url(#stroke1_298_71)"/>
+<defs>
+<path id="stroke0_298_71" d="M34 20.0865L23.3887 30.3607C22.5083 31.2131 21.0813 31.2131 20.2009 30.3607L15 25.3251L18.1878 22.2386L21.7948 25.7309L30.8122 17L34 20.0865Z"/>
+</defs>
+</svg>
